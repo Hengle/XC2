@@ -18,6 +18,7 @@ namespace GameDefinitions
         {
             First = first;
             Second = second;
+            Third = third;
         }
     }
 }

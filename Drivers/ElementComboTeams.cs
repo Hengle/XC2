@@ -5,13 +5,13 @@ using System.Linq;
 
 namespace TestScenarios
 {
-    public class TeamCombinations
+    public class ElementComboTeams
     {
         //map is of first driver, second driver, third driver -> list of combos
         public Dictionary<Element, Dictionary<Element, Dictionary<Element, List<ComboOrder>>>> ElementGraph { get; }
         public List<ElementTeam> ElementTeams { get; set; }
         private List<Driver> Drivers { get; set; }
-        public TeamCombinations(List<Driver> drivers)
+        public ElementComboTeams(List<Driver> drivers)
         {
             ElementGraph = new Dictionary<Element, Dictionary<Element, Dictionary<Element, List<ComboOrder>>>>();
             Drivers = drivers;
@@ -62,23 +62,61 @@ namespace TestScenarios
             return combos.Select(x => x.Third).Distinct().ToList();
         }
 
+        public List<Blade> GetUniqueDrivers(List<List<Blade>> blades)
+        {
+            var newList = new List<Blade>();
+
+            foreach (var group in blades)
+            {
+                newList.Add(group[0]);
+            }
+
+            return newList;
+        }
+
+        public List<ReactionTeam> GetReactionTeams(BladeTeam team)
+        {
+            // get all unique sets of blade combinations, (this is N choose 1 not N choose K)
+            var reactionTeams = new List<ReactionTeam>();
+
+            // list {1}, {2, 3}, {4} => {1, 2, 4}, {1, 3, 4}
+
+            var first = GetUniqueDrivers(team.First);
+            var second = GetUniqueDrivers(team.Second);
+            var third = GetUniqueDrivers(team.Third);
+
+            reactionTeams.Add(new ReactionTeam(first, second, third, team.FinishableElements));
+
+            return reactionTeams;
+        }
+
         public void GroupPrintTeams()
         {
-            var max = ElementTeams.Max(x => x.FinishableElements.Select(y => y.Third).Distinct().Count());
+            var max = ElementTeams.Max(x => GetDistinctFinishableElementsCount(x.FinishableElements));
             Console.WriteLine("Combo Count: " + max);
 
-            var maxTeams = ElementTeams.Where(x => x.FinishableElements.Count() == max);
+            var maxTeams = ElementTeams.Where(x => GetDistinctFinishableElementsCount(x.FinishableElements) == 4);
+            maxTeams = maxTeams.Where(x => x.First.Contains(Element.Light) && x.First.Contains(Element.Fire) && x.Second.Contains(Element.Water));
             var bladeTeams = maxTeams.Select(x => new BladeTeam(x, Drivers)).ToList();
+            var reactionTeams = bladeTeams.SelectMany(x => GetReactionTeams(x));
 
-            foreach (var team in bladeTeams)
+            reactionTeams.OrderByDescending(x => GetDistinctFinishableElements(x.FinishableElements))
+                .ThenByDescending(x => x.FinishableElements.Count())
+                .ThenByDescending(x => x.ReactionTotal());
+
+            foreach (var team in reactionTeams)
             {
-                Console.WriteLine("Combos: " + string.Join(", ", team.FinishableElements.Select(x => x.ToString())));
+                var distinctEndings = GetDistinctFinishableElements(team.FinishableElements);
+                Console.WriteLine(distinctEndings.Count() + " Unique Combo Endings: " + string.Join(", ", distinctEndings));
+                Console.WriteLine("Reaction Total: " + team.ReactionTotal());
                 Console.WriteLine("Rex: " + team.Print(team.First));
                 Console.WriteLine("Nia: " + team.Print(team.Second));
                 Console.WriteLine("Tora: " + team.Print(team.Third));
+                Console.WriteLine(team.FinishableElements.Count() + " Combo List Entries: \n" + Print(team.FinishableElements));
                 Console.WriteLine();
             }
         }
+
 
         public void GetTeamCombos(Driver one, Driver two, Driver three)
         {
@@ -104,8 +142,8 @@ namespace TestScenarios
             }
 
             ElementTeams = ElementTeams
-                .OrderByDescending(x => GetDistinctFinishableElementsCount(x.FinishableElements)).ToList();
-                //.ThenByDescending(x => x.FinishableElements.Count()).ToList();
+                .OrderByDescending(x => GetDistinctFinishableElementsCount(x.FinishableElements))
+                .ThenByDescending(x => x.FinishableElements.Count()).ToList();
         }
 
         public List<ComboOrder> GetFinishableElements(IEnumerable<Element> first, IEnumerable<Element> second, IEnumerable<Element> third)

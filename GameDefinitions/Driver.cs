@@ -11,14 +11,15 @@ namespace GameDefinitions
         // This could be changed to a list of approved names
         public string Name { get; }
         public int MaxBlades;
-        public List<WeaponReactions> Weapons { get; }
+        public List<WeaponReactions> WeaponReactions { get; }
         public List<Blade> Blades { get; }
         public Driver(string name, int maxBlades, List<WeaponReactions> weapons, List<Blade> blades)
         {
             Name = name;
             MaxBlades = maxBlades;
-            Weapons = weapons;
+            WeaponReactions = weapons;
             Blades = blades;
+            Blades.ForEach(x => x.AddReactions(WeaponReactions.First(y => y.Type == x.WeaponType).Reactions));
         }
     }
 }

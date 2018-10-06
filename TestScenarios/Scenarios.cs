@@ -13,9 +13,9 @@ namespace TestScenarios
         public void GetMaxCombos()
         {
             var drivers = new Drivers.Drivers();
-            var graph = new TeamCombinations(drivers.Team);
-            graph.PrintTeams();
-            //graph.GroupPrintTeams();
+            var graph = new ElementComboTeams(drivers.Team);
+            //graph.PrintTeams();
+            graph.GroupPrintTeams();
         }
     }
 }

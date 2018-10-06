@@ -13,6 +13,7 @@ namespace GameDefinitions
         // This could be changed to a list of approved names
         public string Name { get; }
         public Element Element { get; }
+        public List<Reaction> Reactions { get; set; } = new List<Reaction>();
         public Role Role { get; }
         public WeaponType WeaponType { get; }
         public Blade(string name, Role role, Element element, WeaponType weaponType)
@@ -21,6 +22,11 @@ namespace GameDefinitions
             Role = role;
             Element = element;
             WeaponType = weaponType;
+        }
+
+        public void AddReactions(List<Reaction> reactions)
+        {
+            Reactions = reactions;
         }
     }
 }

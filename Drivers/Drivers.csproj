@@ -40,10 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ReactionTeam.cs" />
     <Compile Include="BladeTeam.cs" />
     <Compile Include="ElementTeam.cs" />
     <Compile Include="Ex.cs" />
-    <Compile Include="TeamCombinations.cs" />
+    <Compile Include="ElementComboTeams.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
