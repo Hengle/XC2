@@ -23,15 +23,16 @@ namespace Drivers
                 }, 
                 new List<Blade>
                 {
-                    new Blade("Pyra", Role.Attack, Element.Fire, WeaponType.AegisSword),
-                    new Blade("Mythra", Role.Attack, Element.Light, WeaponType.AegisSword),
-                    new Blade("Roc", Role.Attack, Element.Wind, WeaponType.DualScythes),
-                    new Blade("Gorg", Role.Attack, Element.Water, WeaponType.Greataxe),
-                    new Blade("Perun", Role.Attack, Element.Ice, WeaponType.Megalance),
+                    new Blade("Pyra", Element.Fire, Role.Attack, WeaponType.AegisSword),
+                    new Blade("Mythra", Element.Light, Role.Attack, WeaponType.AegisSword),
+                    new Blade("Roc", Element.Wind, Role.Attack, WeaponType.DualScythes),
+                    new Blade("Gorg", Element.Water, Role.Attack, WeaponType.Greataxe),
+                    new Blade("Perun", Element.Ice, Role.Attack, WeaponType.Megalance),
                     //new Blade("Electra", Role.Tank, Element.Thunder, WeaponType.SheildHammer),
-                    new Blade("Zenobia", Role.Attack, Element.Wind, WeaponType.Greataxe),
+                    new Blade("Zenobia", Element.Wind, Role.Attack, WeaponType.Greataxe),
+                    new Blade("Zenobia", Element.Wind, Role.Attack, WeaponType.Greataxe),
                     //new Blade("Spoiler", Role.Attack, Element.Water, WeaponType.CatalystScimitar),
-                    //new Blade("Wulfrick", Role.Attack, Element.Earth, WeaponType.Megalance),
+                    new Blade("Wulfrick", Element.Earth, Role.Attack, WeaponType.Megalance),
                     //
                 }),
             new Driver("Nia", 3,
@@ -48,12 +49,12 @@ namespace Drivers
                 }, 
                 new List<Blade>
                 {
-                    new Blade("Dromarch", Role.Heal, Element.Water, WeaponType.TwinRings),
-                    new Blade("Boreas", Role.Heal, Element.Wind, WeaponType.Bitball),
-                    new Blade("Floren", Role.Heal, Element.Earth, WeaponType.Bitball),
-                    new Blade("Crossette", Role.Heal, Element.Fire, WeaponType.Bitball),
-                    new Blade("Ursula", Role.Heal, Element.Ice, WeaponType.KnuckleClaws),
-                    new Blade("Adenine", Role.Heal, Element.Wind, WeaponType.KnuckleClaws),
+                    new Blade("Dromarch", Element.Water, Role.Heal, WeaponType.TwinRings),
+                    new Blade("Boreas", Element.Wind, Role.Heal, WeaponType.Bitball),
+                    new Blade("Floren", Element.Earth, Role.Heal, WeaponType.Bitball),
+                    new Blade("Crossette", Element.Fire, Role.Heal, WeaponType.Bitball),
+                    new Blade("Ursula", Element.Ice, Role.Heal, WeaponType.KnuckleClaws),
+                    new Blade("Adenine", Element.Wind, Role.Heal, WeaponType.KnuckleClaws),
                 }),
             new Driver("Torra", 2,
                 new List<WeaponReactions>
@@ -63,8 +64,8 @@ namespace Drivers
                 }, 
                 new List<Blade>
                 {
-                    new Blade("Poppy a", Role.Tank, Element.Earth, WeaponType.DrillShield),
-                    new Blade("Poppy QT", Role.Tank, Element.Fire, WeaponType.KnuckleClaws),
+                    new Blade("Poppy a", Element.Earth, Role.Tank, WeaponType.DrillShield),
+                    new Blade("Poppy QT", Element.Fire, Role.Tank, WeaponType.KnuckleClaws),
                     //new Blade("Poppy QTpi", Role.Attack, Element.Ice, WeaponType.VariableSaber),
                 }),
             new Driver("Morag", 3,
@@ -75,8 +76,9 @@ namespace Drivers
                 },
                 new List<Blade>
                 {
-                    new Blade("Brigand", Role.Tank, Element.Fire, WeaponType.Whispswords),
-                    new Blade("Corbin", Role.Tank, Element.Light, WeaponType.Uchigatana),
+                    new Blade("Brigand", Element.Fire, Role.Tank, WeaponType.Whispswords),
+                    new Blade("Corbin", Element.Light, Role.Tank, WeaponType.Uchigatana),
+                    new Blade("Perceval", Element.Dark, Role.Tank, WeaponType.Uchigatana),
                 }),
         };
     }

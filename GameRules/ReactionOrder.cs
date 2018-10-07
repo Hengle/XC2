@@ -1,22 +1,21 @@
-﻿using GameDefinitions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameRules
+﻿namespace GameRules
 {
+    using System;
+    using System.Collections.Generic;
+    using GameDefinitions;
+
     public static class ReactionOrder
     {
         public static readonly List<Reaction> Definition = new List<Reaction>
         {
-            //whoever has break should aslo have smash for a clean inital rotation
+            // whoever has break should aslo have smash for a clean inital rotation
             Reaction.Break,
-            //get to topple as soon as possible because they stop dealing damange from this point on
+
+            // get to topple as soon as possible because they stop dealing damange from this point on
             Reaction.Topple,
             Reaction.Launch,
-            //Give preference to finishing combos during smash, working backwards
+
+            // Give preference to finishing combos during smash, working backwards
             Reaction.Smash
         };
 

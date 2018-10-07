@@ -1,32 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameDefinitions
+﻿namespace GameDefinitions
 {
+    using System.Collections.Generic;
+
     public class Blade
     {
+        public Blade(string name, Element element, Role role, WeaponType weaponType)
+        {
+            this.Name = name;
+            this.Role = role;
+            this.Element = element;
+            this.WeaponType = weaponType;
+        }
+
         public BladeState State { get; set; } = BladeState.UnusedByDriver;
 
         // This could be changed to a list of approved names
         public string Name { get; }
+
         public Element Element { get; }
+
         public List<Reaction> Reactions { get; set; } = new List<Reaction>();
+
         public Role Role { get; }
+
         public WeaponType WeaponType { get; }
-        public Blade(string name, Role role, Element element, WeaponType weaponType)
-        {
-            Name = name;
-            Role = role;
-            Element = element;
-            WeaponType = weaponType;
-        }
 
         public void AddReactions(List<Reaction> reactions)
         {
-            Reactions = reactions;
+            this.Reactions = reactions;
         }
     }
 }

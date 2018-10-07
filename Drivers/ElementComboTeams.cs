@@ -1,94 +1,25 @@
-﻿using GameDefinitions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace TestScenarios
+﻿namespace Drivers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using GameDefinitions;
+
     public class ElementComboTeams
     {
-        //map is of first driver, second driver, third driver -> list of combos
-        public Dictionary<Element, Dictionary<Element, Dictionary<Element, List<ComboOrder>>>> ElementGraph { get; }
-        public List<ElementTeam> ElementTeams { get; set; }
-        private List<Driver> Drivers { get; set; }
         public ElementComboTeams(List<Driver> drivers)
         {
-            ElementGraph = new Dictionary<Element, Dictionary<Element, Dictionary<Element, List<ComboOrder>>>>();
             Drivers = drivers;
             Fill(Drivers[0], Drivers[1], Drivers[2]);
             GetTeamCombos(Drivers[0], Drivers[1], Drivers[2]);
         }
 
-        public void PrintTeams()
-        {
-            foreach (var team in ElementTeams)
-            {
-                var distinctEndings = GetDistinctFinishableElements(team.FinishableElements);
-                Console.WriteLine(distinctEndings.Count() + " Unique Combo Endings: " + string.Join(", ", distinctEndings));
-                Console.WriteLine("Rex: " + string.Join(", ", team.First.Select(x => x.ToString())));
-                Console.WriteLine("Nia: " + string.Join(", ", team.Second.Select(x => x.ToString())));
-                Console.WriteLine("Tora: " + string.Join(", ", team.Third.Select(x => x.ToString())));
-                Console.WriteLine(team.FinishableElements.Count() + " Total Combos: " + Print(team.FinishableElements));
-                Console.WriteLine();
-            }
-        }
+        // map is of first driver, second driver, third driver -> list of combos
+        public Dictionary<Element, Dictionary<Element, Dictionary<Element, List<ComboOrder>>>> ElementGraph { get; } = new Dictionary<Element, Dictionary<Element, Dictionary<Element, List<ComboOrder>>>>();
 
-        private string Print(List<ComboOrder> finishableElements)
-        {
-            var output = "";
-            var max = finishableElements.Count();
-            for (var counter = 0; counter < max; counter++)
-            {
-                var entry = finishableElements[counter];
+        public List<ElementTeam> ElementTeams { get; set; }
 
-                output += $"{entry.First.ToString()} -> {entry.Second.ToString()} -> {entry.Third.ToString()}";
-
-                if (counter < max - 1)
-                {
-                    output += "\n";
-                }
-            }
-
-            return output;
-        }
-
-            private int GetDistinctFinishableElementsCount(List<ComboOrder> combos)
-        {
-            return GetDistinctFinishableElements(combos).Count();
-        }
-
-        private List<Element> GetDistinctFinishableElements(List<ComboOrder> combos)
-        {
-            return combos.Select(x => x.Third).Distinct().ToList();
-        }
-
-        public List<Blade> GetUniqueDrivers(List<List<Blade>> blades)
-        {
-            var newList = new List<Blade>();
-
-            foreach (var group in blades)
-            {
-                newList.Add(group[0]);
-            }
-
-            return newList;
-        }
-
-        public List<ReactionTeam> GetReactionTeams(BladeTeam team)
-        {
-            // get all unique sets of blade combinations, (this is N choose 1 not N choose K)
-            var reactionTeams = new List<ReactionTeam>();
-
-            // list {1}, {2, 3}, {4} => {1, 2, 4}, {1, 3, 4}
-
-            var first = GetUniqueDrivers(team.First);
-            var second = GetUniqueDrivers(team.Second);
-            var third = GetUniqueDrivers(team.Third);
-
-            reactionTeams.Add(new ReactionTeam(first, second, third, team.FinishableElements));
-
-            return reactionTeams;
-        }
+        private List<Driver> Drivers { get; set; }
 
         public void GroupPrintTeams()
         {
@@ -117,8 +48,77 @@ namespace TestScenarios
             }
         }
 
+        public void PrintTeams()
+        {
+            foreach (var team in this.ElementTeams)
+            {
+                var distinctEndings = this.GetDistinctFinishableElements(team.FinishableElements);
+                Console.WriteLine(distinctEndings.Count() + " Unique Combo Endings: " + string.Join(", ", distinctEndings));
+                Console.WriteLine("Rex: " + string.Join(", ", team.First.Select(x => x.ToString())));
+                Console.WriteLine("Nia: " + string.Join(", ", team.Second.Select(x => x.ToString())));
+                Console.WriteLine("Tora: " + string.Join(", ", team.Third.Select(x => x.ToString())));
+                Console.WriteLine(team.FinishableElements.Count() + " Total Combos: " + Print(team.FinishableElements));
+                Console.WriteLine();
+            }
+        }
 
-        public void GetTeamCombos(Driver one, Driver two, Driver three)
+        private string Print(List<ComboOrder> finishableElements)
+        {
+            var output = string.Empty;
+            var max = finishableElements.Count();
+            for (var counter = 0; counter < max; counter++)
+            {
+                var entry = finishableElements[counter];
+
+                output += $"{entry.First.ToString()} -> {entry.Second.ToString()} -> {entry.Third.ToString()}";
+
+                if (counter < max - 1)
+                {
+                    output += "\n";
+                }
+            }
+
+            return output;
+        }
+
+            private int GetDistinctFinishableElementsCount(List<ComboOrder> combos)
+        {
+            return this.GetDistinctFinishableElements(combos).Count();
+        }
+
+        private List<Element> GetDistinctFinishableElements(List<ComboOrder> combos)
+        {
+            return combos.Select(x => x.Third).Distinct().ToList();
+        }
+
+        private List<Blade> GetUniqueDrivers(List<List<Blade>> blades)
+        {
+            var newList = new List<Blade>();
+
+            foreach (var group in blades)
+            {
+                newList.Add(group[0]);
+            }
+
+            return newList;
+        }
+
+        private List<ReactionTeam> GetReactionTeams(BladeTeam team)
+        {
+            // get all unique sets of blade combinations, (this is N choose 1 not N choose K)
+            var reactionTeams = new List<ReactionTeam>();
+
+            // list {1}, {2, 3}, {4} => {1, 2, 4}, {1, 3, 4}
+            var first = this.GetUniqueDrivers(team.First);
+            var second = this.GetUniqueDrivers(team.Second);
+            var third = this.GetUniqueDrivers(team.Third);
+
+            reactionTeams.Add(new ReactionTeam(first, second, third, team.FinishableElements));
+
+            return reactionTeams;
+        }
+
+        private void GetTeamCombos(Driver one, Driver two, Driver three)
         {
             var first = one.Blades.Select(x => x.Element).Distinct().DifferentCombinations(one.MaxBlades);
             var second = two.Blades.Select(x => x.Element).Distinct().DifferentCombinations(two.MaxBlades);
@@ -135,28 +135,28 @@ namespace TestScenarios
                     foreach (var thirdTeam in third)
                     {
                         var thirdTeamList = thirdTeam.ToList();
-                        var finishableElements = GetFinishableElements(firstTeamList, secondTeamList, thirdTeamList);
-                        ElementTeams.Add(new ElementTeam(firstTeamList, secondTeamList, thirdTeamList, finishableElements));
+                        var finishableElements = this.GetFinishableElements(firstTeamList, secondTeamList, thirdTeamList);
+                        this.ElementTeams.Add(new ElementTeam(firstTeamList, secondTeamList, thirdTeamList, finishableElements));
                     }
                 }
             }
 
-            ElementTeams = ElementTeams
-                .OrderByDescending(x => GetDistinctFinishableElementsCount(x.FinishableElements))
+            this.ElementTeams = this.ElementTeams
+                .OrderByDescending(x => this.GetDistinctFinishableElementsCount(x.FinishableElements))
                 .ThenByDescending(x => x.FinishableElements.Count()).ToList();
         }
 
-        public List<ComboOrder> GetFinishableElements(IEnumerable<Element> first, IEnumerable<Element> second, IEnumerable<Element> third)
+        private List<ComboOrder> GetFinishableElements(IEnumerable<Element> first, IEnumerable<Element> second, IEnumerable<Element> third)
         {
             var finishableElements = new List<ComboOrder>();
 
-            foreach(var a in first)
+            foreach (var a in first)
             {
-                foreach(var b in second)
+                foreach (var b in second)
                 {
-                    foreach(var c in third)
+                    foreach (var c in third)
                     {
-                        finishableElements.AddRange(ElementGraph[a][b][c]);
+                        finishableElements.AddRange(this.ElementGraph[a][b][c]);
                     }
                 }
             }
@@ -164,8 +164,8 @@ namespace TestScenarios
             return finishableElements;
         }
 
-        //no value in having multiple blades of the same element type
-        public void Fill(Driver one, Driver two, Driver three)
+        // no value in having multiple blades of the same element type
+        private void Fill(Driver one, Driver two, Driver three)
         {
             foreach (var oneBlade in one.Blades)
             {
@@ -173,53 +173,53 @@ namespace TestScenarios
                 {
                     foreach (var threeBlade in three.Blades)
                     {
-                        Add(oneBlade, twoBlade, threeBlade);
+                        this.Add(oneBlade, twoBlade, threeBlade);
                     }
                 }
             }
         }
 
-        public void Add(Blade one, Blade two, Blade three)
+        private void Add(Blade one, Blade two, Blade three)
         {
-            Add(one.Element, two.Element, three.Element);
+            this.Add(one.Element, two.Element, three.Element);
         }
 
-        public void Add(Element one, Element two, Element three)
+        private void Add(Element one, Element two, Element three)
         {
-            if (!ElementGraph.ContainsKey(one))
+            if (!this.ElementGraph.ContainsKey(one))
             {
-                ElementGraph.Add(one, new Dictionary<Element, Dictionary<Element, List<ComboOrder>>>());
+                this.ElementGraph.Add(one, new Dictionary<Element, Dictionary<Element, List<ComboOrder>>>());
             }
 
-            if (!ElementGraph[one].ContainsKey(two))
+            if (!this.ElementGraph[one].ContainsKey(two))
             {
-                ElementGraph[one].Add(two, new Dictionary<Element, List<ComboOrder>>());
+                this.ElementGraph[one].Add(two, new Dictionary<Element, List<ComboOrder>>());
             }
 
-            if (!ElementGraph[one][two].ContainsKey(three))
+            if (!this.ElementGraph[one][two].ContainsKey(three))
             {
-                //we only need to calculate the number of finishable elements if we haven't seen it before
-                ElementGraph[one][two].Add(three, FinishableElements(one, two, three));
+                // we only need to calculate the number of finishable elements if we haven't seen it before
+                this.ElementGraph[one][two].Add(three, this.FinishableElements(one, two, three));
             }
         }
 
-        public List<ComboOrder> FinishableElements(Blade one, Blade two, Blade three)
+        private List<ComboOrder> FinishableElements(Blade one, Blade two, Blade three)
         {
-            return FinishableElements(one.Element, two.Element, three.Element);
+            return this.FinishableElements(one.Element, two.Element, three.Element);
         }
 
-        //The list of finishable elements
-        //note: this doesnt help disambiguate if multiple elements can combine into the same final element in more then one way
-        public List<ComboOrder> FinishableElements(Element one, Element two, Element three)
+        // The list of finishable elements
+        // note: this doesnt help disambiguate if multiple elements can combine into the same final element in more then one way
+        private List<ComboOrder> FinishableElements(Element one, Element two, Element three)
         {
-            var combos = CanFinish(one, two, three);
-            combos.AddRange(CanFinish(two, one, three));
-            combos.AddRange(CanFinish(three, one, two));
+            var combos = this.CanFinish(one, two, three);
+            combos.AddRange(this.CanFinish(two, one, three));
+            combos.AddRange(this.CanFinish(three, one, two));
             return combos;
         }
 
-        //A combo can be finished if there is a combo entry that can do elements one and two in order for the given target element
-        public List<ComboOrder> CanFinish(Element targetElement, Element one, Element two)
+        // A combo can be finished if there is a combo entry that can do elements one and two in order for the given target element
+        private List<ComboOrder> CanFinish(Element targetElement, Element one, Element two)
         {
             var elements = new List<Element>();
             var comboEntry = GameRules.ComboList.Definition.First(x => x.ComboFinishType == targetElement);
