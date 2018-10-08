@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drivers", "Drivers\Drivers.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestScenarios", "TestScenarios\TestScenarios.csproj", "{1F9AC098-6769-43A3-970E-CA02FCCC1E1F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikiParser", "WikiParser\WikiParser.csproj", "{93E34A2B-D14F-43C6-912A-32E03A3F8AE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{1F9AC098-6769-43A3-970E-CA02FCCC1E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F9AC098-6769-43A3-970E-CA02FCCC1E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F9AC098-6769-43A3-970E-CA02FCCC1E1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93E34A2B-D14F-43C6-912A-32E03A3F8AE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93E34A2B-D14F-43C6-912A-32E03A3F8AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93E34A2B-D14F-43C6-912A-32E03A3F8AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93E34A2B-D14F-43C6-912A-32E03A3F8AE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

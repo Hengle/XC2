@@ -48,6 +48,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WikiParserTests.cs" />
     <Compile Include="Scenarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -66,6 +67,10 @@
     <ProjectReference Include="..\GameRules\GameRules.csproj">
       <Project>{e2ff73ab-18b2-41f3-b626-5125c62625ad}</Project>
       <Name>GameRules</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WikiParser\WikiParser.csproj">
+      <Project>{93e34a2b-d14f-43c6-912a-32e03a3f8ae6}</Project>
+      <Name>WikiParser</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

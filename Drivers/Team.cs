@@ -1,15 +1,12 @@
-﻿using GameDefinitions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Drivers
+﻿namespace Drivers
 {
+    using System.Collections.Generic;
+    using GameDefinitions;
+
     public class Drivers
     {
-        public List<Driver> Team = new List<Driver>{
+        public List<Driver> Team = new List<Driver>
+        {
             new Driver("Rex", 4,
                 new List<WeaponReactions>
                 {

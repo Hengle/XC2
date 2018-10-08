@@ -1,10 +1,10 @@
-﻿using GameDefinitions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace TestScenarios
+﻿namespace Drivers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using GameDefinitions;
+
     public class BladeTeam
     {
         public List<ComboOrder> FinishableElements { get; }
