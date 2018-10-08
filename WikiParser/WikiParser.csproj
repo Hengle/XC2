@@ -47,7 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Contents\Drivers.html" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +54,9 @@
       <Project>{9cbeed13-908e-4c79-88fc-bf43f0a7eafd}</Project>
       <Name>GameDefinitions</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Contents\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
